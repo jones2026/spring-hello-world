@@ -9,7 +9,7 @@ platform:
 
 steps:
 - name: docker_lint
-  image: hadolint/hadolint:v1.18.2-debian
+  image: hadolint/hadolint:v1.19.0-debian
   commands:
   - hadolint - < Dockerfile
 
