@@ -1,9 +1,11 @@
 package com.jones2026.springhello.Greetings;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import reactor.core.publisher.Mono;
 
 @Controller
 public class GreetingController {
@@ -15,8 +17,10 @@ public class GreetingController {
     }
 
     @RequestMapping("/greeting")
-    public @ResponseBody String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return service.greet(name);
+    public Mono<ResponseEntity<String>> greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return service.greet(name)
+                .map(r -> ResponseEntity.ok().body(r))
+                ;
     }
 
 }
